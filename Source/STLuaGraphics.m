@@ -85,6 +85,8 @@ GLuint STLoadTexture(NSString* textureName)
                       GL_BGRA,
                       GL_UNSIGNED_INT_8_8_8_8_REV,
                       buf);
+                      
+    DisposeGWorld(gw);
 
     free(buf);
 
