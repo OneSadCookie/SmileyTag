@@ -1,0 +1,46 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {endGame = id; newGame = id; showPreferences = id; validatePlayButton = id; }; 
+            CLASS = STApplication; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                gameTypePopup = NSPopUpButton; 
+                glView = STOpenGLView; 
+                inputController = STInputController; 
+                interpreter = STLuaInterpreter; 
+                newGamePanel = NSPanel; 
+                playButton = NSButton; 
+                player1In = NSButton; 
+                player1Type = NSMatrix; 
+                player2In = NSButton; 
+                player2Type = NSMatrix; 
+                player3In = NSButton; 
+                player3Type = NSMatrix; 
+                player4In = NSButton; 
+                player4Type = NSMatrix; 
+                player5In = NSButton; 
+                player5Type = NSMatrix; 
+                player6In = NSButton; 
+                player6Type = NSMatrix; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = STInputController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {interpreter = STLuaInterpreter; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = STLuaInterpreter; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = STOpenGLView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {inputController = STInputController; interpreter = STLuaInterpreter; }; 
+            SUPERCLASS = NSOpenGLView; 
+        }
+    ); 
+    IBVersion = 1; 
+}
