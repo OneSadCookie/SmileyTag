@@ -1,3 +1,5 @@
+require 'rbuild-bundle'
+
 OPTIMIZATION_CFLAGS = '-g -Os'
 WARNING_CFLAGS = '-Wall -W -Wno-unused-parameter -Wnewline-eof -Werror'
 OTHER_CFLAGS = '-ILua/lua-5.0/include'
@@ -20,28 +22,9 @@ objects = Dir['Source/*.m'].collect do |source_file|
     object_file
 end
 
-build(:targets => ['Smiley Tag.app',
-                   'Smiley Tag.app/Contents',
-                   'Smiley Tag.app/Contents/MacOS'],
-      :command => 'mkdir -p Smiley\ Tag.app/Contents/MacOS',
-      :message => "Creating Bundle Hierarchy Smiley Tag.app")
-
-build(:targets => ['Smiley Tag.app/Contents/Resources'],
-      :dependencies => ['Smiley Tag.app/Contents',
-                        'Resources'],
-      :command => 'cp -r Resources Smiley\ Tag.app/Contents/',
-      :message => "Copying Resources")
-
-build(:targets => ['Smiley Tag.app/Contents/PkgInfo'],
-      :dependencies => ['Smiley Tag.app/Contents'],
-      :command => 'echo "APPL????" > Smiley\ Tag.app/Contents/PkgInfo',
-      :message => "Creating PkgInfo File Smiley Tag.app/Contents/PkgInfo")
-      
-build(:targets => ['Smiley Tag.app/Contents/Info.plist'],
-      :dependencies => ['Info.plist',
-                        'Smiley Tag.app/Contents'],
-      :command => 'cp Info.plist Smiley\ Tag.app/Contents/',
-      :message => "Copying Info.plist File Smiley Tag.app/Contents/Info.plist")
+build_bundle(:bundle_name => 'Smiley Tag.app',
+             :resources_directory => 'Resources',
+             :info_plist_file => 'Info.plist')
 
 build(:targets => ['Smiley Tag.app/Contents/MacOS/Smiley Tag'],
       :dependencies => objects +
