@@ -1,35 +1,22 @@
 require 'rbuild-bundle'
+require 'rbuild-cfamily'
 
-OPTIMIZATION_CFLAGS = '-g -Os'
-WARNING_CFLAGS = '-Wall -W -Wno-unused-parameter -Wnewline-eof -Werror'
-OTHER_CFLAGS = '-ILua/lua-5.0/include'
-CC = "gcc #{OPTIMIZATION_CFLAGS} #{WARNING_CFLAGS} #{OTHER_CFLAGS}"
-
-def cc_dependencies(source_file)
-    `#{CC} -MM #{source_file}`.gsub(/\\/, '').split(' ')[1..-1]
+if !File.exists?('Lua/lua-5.0/lib/liblua.a')
+    system('cd Lua && tar -xzf lua-5.0.tar.gz')
+    system('cd Lua/lua-5.0 && make')
 end
 
-def object(object_file, source_file)
-    build(:targets => [object_file],
-          :dependencies => cc_dependencies(source_file),
-          :command => "#{CC} -c #{source_file} -o #{object_file}",
-          :message => "Compiling #{source_file}")
-end
-
-objects = Dir['Source/*.m'].collect do |source_file|
-    object_file = "Build/#{File.basename(source_file, '.m')}.o"
-    object(object_file, source_file)
-    object_file
-end
+objects = build_objects(:sources => Dir['Source/*.m'],
+                        :extra_cflags => '-ILua/lua-5.0/include',
+                        :extra_dependencies => ['Lua/lua-5.0'])
 
 build_bundle(:bundle_name => 'Smiley Tag.app',
              :resources_directory => 'Resources',
              :info_plist_file => 'Info.plist')
 
-build(:targets => ['Smiley Tag.app/Contents/MacOS/Smiley Tag'],
-      :dependencies => objects +
-                      ['Lua/lua-5.0/lib/liblua.a',
-                       'Lua/lua-5.0/lib/liblualib.a',
-                       'Smiley Tag.app/Contents/MacOS'],
-      :command => "#{CC} -o Smiley\\ Tag.app/Contents/MacOS/Smiley\\ Tag #{objects.join(' ')} -LLua/lua-5.0/lib -llua -llualib -framework Cocoa -framework OpenGL -framework QuickTime",
-      :message => "Linking Smiley Tag")
+build_link(:executable => 'Smiley Tag.app/Contents/MacOS/Smiley Tag',
+           :objects => objects,
+           :archives => ['Lua/lua-5.0/lib/liblua.a',
+                         'Lua/lua-5.0/lib/liblualib.a'],
+           :frameworks => ['Cocoa', 'OpenGL', 'QuickTime'],
+           :extra_dependencies => ['Smiley Tag.app/Contents/MacOS'])
