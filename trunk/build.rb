@@ -14,9 +14,8 @@ build_bundle(:bundle_name => 'Smiley Tag.app',
              :resources_directory => 'Resources',
              :info_plist_file => 'Info.plist')
 
-build_link(:executable => 'Smiley Tag.app/Contents/MacOS/Smiley Tag',
-           :objects => objects,
-           :archives => ['Lua/lua-5.0/lib/liblua.a',
-                         'Lua/lua-5.0/lib/liblualib.a'],
-           :frameworks => ['Cocoa', 'OpenGL', 'QuickTime'],
-           :extra_dependencies => ['Smiley Tag.app/Contents/MacOS'])
+build_executable(:executable => 'Smiley Tag.app/Contents/MacOS/Smiley Tag',
+                 :objects => objects,
+                 :archives => ['Lua/lua-5.0/lib/liblua.a',
+                               'Lua/lua-5.0/lib/liblualib.a'],
+                 :frameworks => ['Cocoa', 'OpenGL', 'QuickTime'])
