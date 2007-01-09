@@ -21,6 +21,7 @@
 - (void)dealloc
 {
     lua_close(_interpreter);
+    [super dealloc];
 }
 
 - (lua_State *)interpreter
