@@ -143,7 +143,7 @@ if ([[player##number##Type cellWithTag:0] state] == NSOffState) \
 {
     lua_State *L = [interpreter interpreter];
 
-    lua_mathlibopen(L);
+    luaopen_math(L);
     
     STLoadLuaAPI(L);
     STLoadLuaOpenGL(L);

@@ -23,8 +23,18 @@ void STImport(NSString *scriptName, lua_State *interpreter)
                                                          ofType:@"lua"
                                                     inDirectory:@"Scripts"];
 
-    int error = lua_dofile(interpreter, [filePath fileSystemRepresentation]);
+    int error = luaL_loadfile(interpreter, [filePath fileSystemRepresentation]);
+    if (error != 0)
+    {
+        NSString *message = NSLocalizedString(@"The error `%u' occurred while trying to load the Lua script `%@'",
+                                              @"Lua error");
 
+        STFatalError([NSString stringWithFormat:message, error, scriptName]);
+    }
+    
+    // lua_dofile replaced in 5.1 by luaL_loadfile, lua_pcall for reasons I can
+    // only find explained in Japanese...
+    error = lua_pcall(interpreter, 0, 0, 0);
     if (error != 0)
     {
         NSString *message = NSLocalizedString(@"The error `%u' occurred while trying to run the Lua script `%@'",

@@ -1,3 +1,5 @@
+#import <lauxlib.h>
+
 #import "STLuaAPI.h"
 #import "STLuaInterpreter.h"
 
