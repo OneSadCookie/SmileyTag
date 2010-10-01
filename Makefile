@@ -64,8 +64,8 @@ $(NIB): MainMenu.xib
 all: Makefile $(EXE) $(INFO_PLIST) $(PKGINFO) $(NIB)
 	rsync -r --del --exclude '.*' --exclude '*.nib' Resources $(CONTENTS)/
 
-Astro.dmg: Makefile all
-	dmgcanvas Astro.dmgCanvas Astro.dmg -leopard-compatible
+$(APP).dmg: Makefile all
+	dmgcanvas $(APP).dmgCanvas $(APP).dmg -leopard-compatible
 
 clean:
 	rm -rf build $(BUNDLE) $(LUA)
