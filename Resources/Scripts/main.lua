@@ -21,7 +21,7 @@ LEFT = 3
 RIGHT = 4
 
 WORLD_WIDTH = 1024
-WORLD_HEIGHT = 3 * WORLD_WIDTH / 4
+WORLD_HEIGHT = 5 * WORLD_WIDTH / 8
 
 setRulesWithName = function (name)
     rules = ruleSets[name]()
@@ -66,10 +66,10 @@ reshape = function (width, height)
     glClearColor(0, 0, 0, 1)
     glClear(GL_COLOR_BUFFER_BIT)
     
-    if 3 * width / 4 > height then
-        glViewport((width - 4 * height / 3) / 2, 0, 4 * height / 3, height)
+    if 5 * width / 8 > height then
+        glViewport((width - 8 * height / 5) / 2, 0, 8 * height / 5, height)
     else
-        glViewport(0, (height - 3 * width / 4) / 2, width, 3 * width / 4)
+        glViewport(0, (height - 5 * width / 8) / 2, width, 5 * width / 8)
     end
         
     glMatrixMode(GL_PROJECTION)

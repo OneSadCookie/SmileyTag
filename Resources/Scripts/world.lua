@@ -93,8 +93,9 @@ World = function (width, height)
             glTexEnv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
         
             renderQuad(winner._red, winner._green, winner._blue,
-                       self._width / 4, self._height / 6,
-                       self._width / 2, self._height / 3)
+                       0.5 * (self._width - 512),
+                       0.5 * (self._height - 512.0),
+                       512.0, 512.0)
                        
             glActiveTextureARB(GL_TEXTURE1_ARB)
             glEnable(GL_TEXTURE_2D)

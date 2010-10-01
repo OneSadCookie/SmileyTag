@@ -151,8 +151,8 @@ Smiley = function (red, green, blue, state, ai)
             glTexEnv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
         
             renderQuad(self._red, self._green, self._blue,
-                       3 * worldWidth / 8, worldHeight / 2,
-                       worldWidth / 4, worldHeight / 3)
+                       0.5 * (worldWidth - 512.0), 0.25 * (worldHeight - 512.0),
+                       512.0, 512.0)
         end,
         
         pulsate = function (self, amount)
