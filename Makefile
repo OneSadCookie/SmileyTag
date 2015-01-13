@@ -1,7 +1,7 @@
 MAKEFLAGS := Rr $(shell echo -j$$(((1 + 3 * `sysctl -n hw.ncpu`) / 2)))
 
 export APP := SmileyTag
-ARCHS      := ppc i386 x86_64
+ARCHS      := i386 x86_64
 
 C_EXTS   := c m
 CXX_EXTS := cc cpp cxx c++ mm
@@ -21,7 +21,7 @@ LUA_SOURCES := $(patsubst %,$(LUA)/src/%.c,lapi lcode ldebug ldo ldump lfunc lgc
 	lobject lopcodes lparser lstate lstring ltable ltm  \
 	lundump lvm lzio lmathlib lauxlib)
 
-export CFLAGS   := -I$(LUA)/src -Wall -Wextra -Wno-unused-parameter -Wnewline-eof -Werror -O2 -gfull -pipe -mdynamic-no-pic
+export CFLAGS   := -I$(LUA)/src -Wall -Wextra -Wno-unused-parameter -Wnewline-eof -O2 -gfull -pipe -mdynamic-no-pic
 export CXXFLAGS  = $(CFLAGS) -fno-exceptions -fno-rtti
 export LDFLAGS  := $(patsubst %,-framework %,Cocoa OpenGL GLUT)
 

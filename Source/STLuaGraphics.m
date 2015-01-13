@@ -15,7 +15,7 @@ void STLoadLuaGraphicsAPI(lua_State *interpreter)
 }
 
 #define quit_if(b, ...) if (b) { \
-    NSLog(@"%s", __VA_ARGS__);   \
+    NSLog(__VA_ARGS__);          \
     return 0;                    \
 }
 
